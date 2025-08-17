@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:signavio="http://www.signavio.com" id="sid-1c3cfec2-730a-49d0-a8c8-e113976e3490" targetNamespace="http://www.signavio.com" expressionLanguage="http://www.w3.org/TR/XPath" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="14.7.1" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <bpmn:process id="sid-1d948fe9-dccb-4cf1-b36d-fc2cf040972c" processType="None" isClosed="false" isExecutable="false">
+    <bpmn:startEvent id="Event_0exrqxo">
+      <bpmn:outgoing>Flow_03ly9bb</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0hwk11r" name="choose visa category">
+      <bpmn:incoming>Flow_03ly9bb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1egusky</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_03ly9bb" sourceRef="Event_0exrqxo" targetRef="Activity_0hwk11r" />
+    <bpmn:task id="Activity_0zqdgp7" name="check general requirements">
+      <bpmn:incoming>Flow_1egusky</bpmn:incoming>
+      <bpmn:outgoing>Flow_0knpjgx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1egusky" sourceRef="Activity_0hwk11r" targetRef="Activity_0zqdgp7" />
+    <bpmn:exclusiveGateway id="Gateway_1c51z9h" name="test?">
+      <bpmn:incoming>Flow_0knpjgx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1evil98</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0s2kr9y</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0knpjgx" sourceRef="Activity_0zqdgp7" targetRef="Gateway_1c51z9h" />
+    <bpmn:task id="Activity_103dfkm" name="check special papers">
+      <bpmn:incoming>Flow_1evil98</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uo17cb</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1evil98" name="no" sourceRef="Gateway_1c51z9h" targetRef="Activity_103dfkm" />
+    <bpmn:task id="Activity_04vp9lu" name="check special requirements">
+      <bpmn:incoming>Flow_0s2kr9y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kxtyzh</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0s2kr9y" name="yes" sourceRef="Gateway_1c51z9h" targetRef="Activity_04vp9lu" />
+    <bpmn:exclusiveGateway id="Gateway_0jsajs5" name="special requirements fulfilled?">
+      <bpmn:incoming>Flow_1kxtyzh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nlwebo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1anqrd4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1kxtyzh" sourceRef="Activity_04vp9lu" targetRef="Gateway_0jsajs5" />
+    <bpmn:endEvent id="Event_1ijs6mp">
+      <bpmn:incoming>Flow_1nlwebo</bpmn:incoming>
+      <bpmn:incoming>Flow_1uo17cb</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1nlwebo" name="no" sourceRef="Gateway_0jsajs5" targetRef="Event_1ijs6mp" />
+    <bpmn:sequenceFlow id="Flow_1uo17cb" sourceRef="Activity_103dfkm" targetRef="Event_1ijs6mp" />
+    <bpmn:task id="Activity_055nsrk" name="check necessary documents">
+      <bpmn:incoming>Flow_1anqrd4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ge96fv</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1anqrd4" name="yes" sourceRef="Gateway_0jsajs5" targetRef="Activity_055nsrk" />
+    <bpmn:task id="Activity_17hwgxe" name="search apartment">
+      <bpmn:incoming>Flow_0ge96fv</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k5j1xy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ge96fv" sourceRef="Activity_055nsrk" targetRef="Activity_17hwgxe" />
+    <bpmn:task id="Activity_16zp16y" name="apply for apartment">
+      <bpmn:incoming>Flow_1k5j1xy</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dbvlad</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1k5j1xy" sourceRef="Activity_17hwgxe" targetRef="Activity_16zp16y" />
+    <bpmn:exclusiveGateway id="Gateway_0x1gmm0">
+      <bpmn:incoming>Flow_1dbvlad</bpmn:incoming>
+      <bpmn:incoming>Flow_15qemj2</bpmn:incoming>
+      <bpmn:outgoing>Flow_076mu62</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1dbvlad" sourceRef="Activity_16zp16y" targetRef="Gateway_0x1gmm0" />
+    <bpmn:sequenceFlow id="Flow_076mu62" sourceRef="Gateway_0x1gmm0" targetRef="Gateway_1tx4pku" />
+    <bpmn:task id="Activity_0ks3fkb" name="submit documents">
+      <bpmn:incoming>Flow_0z3y89e</bpmn:incoming>
+      <bpmn:outgoing>Flow_18fexch</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0z3y89e" sourceRef="Gateway_1tx4pku" targetRef="Activity_0ks3fkb" />
+    <bpmn:sequenceFlow id="Flow_18fexch" sourceRef="Activity_0ks3fkb" targetRef="Gateway_1r1pwdz" />
+    <bpmn:task id="Activity_009a3b4" name="submit visa application">
+      <bpmn:incoming>Flow_19nvuih</bpmn:incoming>
+      <bpmn:outgoing>Flow_05wyri3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_19nvuih" sourceRef="Gateway_1tx4pku" targetRef="Activity_009a3b4" />
+    <bpmn:sequenceFlow id="Flow_05wyri3" sourceRef="Activity_009a3b4" targetRef="Gateway_1r1pwdz" />
+    <bpmn:task id="Activity_019ya0m" name="submit documents">
+      <bpmn:incoming>Flow_0b61li4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ufw667</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0b61li4" sourceRef="Gateway_1r1pwdz" targetRef="Activity_019ya0m" />
+    <bpmn:task id="Activity_16x6nwt" name="apply for online bank account">
+      <bpmn:incoming>Flow_0ufw667</bpmn:incoming>
+      <bpmn:outgoing>Flow_1udpovv</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ufw667" sourceRef="Activity_019ya0m" targetRef="Activity_16x6nwt" />
+    <bpmn:exclusiveGateway id="Gateway_0z722e3" name="accepted?">
+      <bpmn:incoming>Flow_1udpovv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vqvcy1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0doeowr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1udpovv" sourceRef="Activity_16x6nwt" targetRef="Gateway_0z722e3" />
+    <bpmn:endEvent id="Event_0a5e8u3">
+      <bpmn:incoming>Flow_0vqvcy1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0vqvcy1" name="yes" sourceRef="Gateway_0z722e3" targetRef="Event_0a5e8u3" />
+    <bpmn:task id="Activity_10t1rtt" name="correct application">
+      <bpmn:incoming>Flow_0doeowr</bpmn:incoming>
+      <bpmn:outgoing>Flow_15qemj2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0doeowr" name="no" sourceRef="Gateway_0z722e3" targetRef="Activity_10t1rtt" />
+    <bpmn:sequenceFlow id="Flow_15qemj2" sourceRef="Activity_10t1rtt" targetRef="Gateway_0x1gmm0" />
+    <bpmn:parallelGateway id="Gateway_1tx4pku">
+      <bpmn:incoming>Flow_076mu62</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z3y89e</bpmn:outgoing>
+      <bpmn:outgoing>Flow_19nvuih</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:parallelGateway id="Gateway_1r1pwdz">
+      <bpmn:incoming>Flow_18fexch</bpmn:incoming>
+      <bpmn:incoming>Flow_05wyri3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0b61li4</bpmn:outgoing>
+    </bpmn:parallelGateway>
+  </bpmn:process>
+</bpmn:definitions>
