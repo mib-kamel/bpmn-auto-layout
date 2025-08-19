@@ -50,7 +50,7 @@ body {
   z-index: 1;
   font-size: 12px;
 
-  button + button {
+  button+button {
     margin-left: 8px;
   }
 }
@@ -121,4 +121,21 @@ a.link:hover {
 
   display: table-cell;
   vertical-align: middle;
+}
+
+/* Grid overlay */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px;
+  z-index: 10;
+  display: none;
+}
+
+.grid-overlay.visible {
+  display: block;
 }

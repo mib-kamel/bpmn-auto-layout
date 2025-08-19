@@ -29,6 +29,22 @@ const viewer = new Viewer({
   container: '#viewer',
 });
 
+// inject grid overlay
+const viewerContainer = document.querySelector('#viewer');
+const gridLayer = document.createElement('div');
+gridLayer.className = 'grid-overlay';
+viewerContainer.appendChild(gridLayer);
+
+// add toggle button
+const gridToggle = document.createElement('button');
+gridToggle.textContent = 'Toggle Grid';
+gridToggle.className = 'link';
+gridToggle.style.position = 'absolute';
+gridToggle.style.top = '8px';
+gridToggle.style.right = '8px';
+gridToggle.addEventListener('click', () => gridLayer.classList.toggle('visible'));
+viewerContainer.appendChild(gridToggle);
+
 const update = async () => {
   const { xml } = await modeler.saveXML({ format: true });
 
@@ -50,7 +66,7 @@ const update = async () => {
     });
 };
 
-modeler.on([ 'import.done', 'elements.changed' ], update);
+modeler.on(['import.done', 'elements.changed'], update);
 
 // helpers ////////////
 
@@ -91,11 +107,11 @@ document.body.addEventListener('dragover', fileDrop('Open BPMN diagram', openFil
 
 const openButton = document.querySelector('#file-open');
 
-openButton.addEventListener('click', function() {
+openButton.addEventListener('click', function () {
   return fileOpen().then(openFile);
 });
 
-document.body.addEventListener('keydown', function(event) {
+document.body.addEventListener('keydown', function (event) {
   if (event.code === 'KeyS' && (event.metaKey || event.ctrlKey)) {
     event.preventDefault();
 

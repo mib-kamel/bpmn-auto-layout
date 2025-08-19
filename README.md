@@ -29,7 +29,7 @@ Automated generation of BPMN DI (shapes + edges) with advanced, collaboration‑
 ## 1. Installation
 
 ```bash
-npm install bpmn-smart-auto-layout
+npm install
 ```
 
 Requires Node.js >= 18.
