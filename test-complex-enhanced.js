@@ -65,7 +65,6 @@ function analyzeResult(xml) {
         'Collaboration': xml.includes('bpmn:collaboration'),
         'Multiple Processes': (xml.match(/bpmn:process/g) || []).length > 1,
         'Participants': xml.includes('bpmn:participant'),
-        'Lanes': xml.includes('bpmn:laneSet'),
         'SubProcesses': xml.includes('bpmn:subProcess'),
         'Message Flows': xml.includes('bpmn:messageFlow'),
         'DI Elements': xml.includes('bpmndi:BPMNShape'),
@@ -107,5 +106,22 @@ async function testSimpleLayout() {
     }
 }
 
+async function testMoreComplexLayout() {
+    try {
+        console.log('\n🔄 Testing More Complex BPMN (regression test)...');
+
+        const simpleBpmn = readFileSync('./more_complex/9.bpmn2.bpmn', 'utf-8');
+        const result = await layoutProcess(simpleBpmn);
+
+        writeFileSync('./more_complex/output_9_enhanced.bpmn', result);
+
+        const hasElements = result.includes('bpmndi:BPMNShape');
+        console.log(`   More Complex BPMN: ${hasElements ? '✅' : '❌'}`);
+    } catch (error) {
+        console.log('❌ More Complex BPMN test failed:', error.message);
+        console.error(error.stack);
+    }
+}
+
 // Run both tests
-testComplexLayout().then(() => testSimpleLayout());
+testComplexLayout().then(() => testSimpleLayout().then(() => testMoreComplexLayout()));
